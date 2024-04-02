@@ -3,12 +3,14 @@ package com.betrybe.agrix.ebytr.staff.controllers;
 
 import com.betrybe.agrix.ebytr.staff.controllers.dto.FarmDto;
 import com.betrybe.agrix.ebytr.staff.entity.Farm;
+import com.betrybe.agrix.ebytr.staff.security.Role;
 import com.betrybe.agrix.ebytr.staff.service.FarmService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +43,7 @@ public class FarmController {
    * @return List of farms.
    */
   @GetMapping
+  @Secured({Role.ROLE_ADMIN, Role.ROLE_USER, Role.ROLE_MANAGER})
   public ResponseEntity<List<FarmDto>> getAllFarms() {
     List<Farm> farmList = farmService.getAllFarms();
     List<FarmDto> farmDtoList = new ArrayList<>();

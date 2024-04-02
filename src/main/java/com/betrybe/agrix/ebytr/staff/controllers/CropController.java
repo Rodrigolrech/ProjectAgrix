@@ -6,6 +6,7 @@ import com.betrybe.agrix.ebytr.staff.controllers.dto.ResponseDto;
 import com.betrybe.agrix.ebytr.staff.entity.Crop;
 import com.betrybe.agrix.ebytr.staff.entity.Farm;
 import com.betrybe.agrix.ebytr.staff.entity.Fertilizer;
+import com.betrybe.agrix.ebytr.staff.security.Role;
 import com.betrybe.agrix.ebytr.staff.service.CropService;
 import com.betrybe.agrix.ebytr.staff.service.FarmService;
 import com.betrybe.agrix.ebytr.staff.service.FertilizerService;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -102,6 +104,7 @@ public class CropController {
    * @return List of all the crops.
    */
   @GetMapping("/crops")
+  @Secured({Role.ROLE_ADMIN, Role.ROLE_MANAGER})
   public ResponseEntity<List<CropResponseDto>> getAllCrops() {
     List<Crop> cropList = cropService.getAllCrops();
     return ResponseEntity.ok(cropList.stream().map(crop ->
