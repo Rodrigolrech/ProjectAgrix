@@ -1,6 +1,7 @@
 package com.betrybe.agrix.ebytr.staff.entity;
 
 
+import com.betrybe.agrix.ebytr.staff.controllers.dto.PersonResponseDto;
 import com.betrybe.agrix.ebytr.staff.security.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,6 +28,34 @@ public class Person {
   private Role role;
 
   public Person() {
+  }
+
+  /**
+   * Person Constructor without Id.
+   *
+   * @param username username.
+   * @param password password.
+   * @param role role.
+   */
+  public Person(String username, String password, Role role) {
+    this.username = username;
+    this.password = password;
+    this.role = role;
+  }
+
+  /**
+   * Person Constructor with all parameters.
+   *
+   * @param id id.
+   * @param username username.
+   * @param password password.
+   * @param role role.
+   */
+  public Person(Long id, String username, String password, Role role) {
+    this.id = id;
+    this.username = username;
+    this.password = password;
+    this.role = role;
   }
 
   public Long getId() {
@@ -59,6 +88,10 @@ public class Person {
 
   public void setRole(Role role) {
     this.role = role;
+  }
+
+  public PersonResponseDto toPersonResponseDto() {
+    return new PersonResponseDto(id, username, role);
   }
 
   @Override
